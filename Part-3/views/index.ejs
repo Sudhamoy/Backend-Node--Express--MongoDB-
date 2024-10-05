@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title><%=title%></title>
+</head>
+<body>
+  <h1><%=msg%></h1>
+</body>
+</html>
+
+<!--
+(1) <%=%> : Literals
+(2) Inside the literals: dynamic value
+
+Some template literals:
+(3) <%=%> - output the value of a variable with escaping (&lt, &gt)
+
+example:
+app.get('/escaped',(req,res)=>{
+  const data={
+    Escaped value:'<script>alert("XSS")</script>'
+  }
+  res.render('escaped',data)
+})
+
+escaped.ejs:
+  <p> Value: <%= Escaped value %></p>
+
+Output:
+<p>Value:&lt;script&gt;alert(&quot;XSS&quot;)&lt;/script&gt;</p>
+
+(4) <%-%> - output te value of a variable without escaping(< , >)
+
+example:
+app.get('/escaped',(req,res)=>{
+  const data={
+    Unescaped value:'<script>alert("XSS")</script>'
+  }
+  res.render('escaped',data)
+})
+
+escaped.ejs:
+  <p> Value: <%= Unescaped value %></p>
+
+output:
+  <p>Value: <script>alert("XSS")</script></p>
+
+(5) <% %> - execute javascript code without output
+
+example:
+  <% if (true) { %>
+  <p>This will be rendered</p>
+<% } else { %>
+  <p>This will not be rendered</p>
+<% } %>
+
+output:
+  <p>This will be rendered</p>
+
+
+(6) <%#%> - comments
+
+example:
+  <%# This is a comment and will not be rendered %>
+<p>This will be rendered</p>
+
+output:
+<p>This will be rendered</p>
+
+
+(7) <%% %>- literals<% %>
+
+example:
+  <p>Literal tags: <%%= 'Hello World' %%></p>
+
+output:
+  <p>Literal tags: <%= 'Hello World' %></p>
+
+-->
